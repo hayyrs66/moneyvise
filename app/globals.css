@@ -2,32 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  overflow-x: hidden;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.text-gradient {
+  background: radial-gradient(
+    64.18% 64.18% at 71.16% 35.69%,
+    hsl(210, 100%, 95%) 0.89%,
+    #ddedff 17.23%,
+    #c2deff 42.04%,
+    #b0d5ff 55.12%,
+    #97c8ff 71.54%,
+    #d0e5ff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.line-gradient-to-right {
+  background: radial-gradient(
+    64.18% 64.18% at 71.16% 35.69%,
+    #bad6f7 0.89%,
+    #899eb6 17.23%,
+    #6c7c8f 42.04%,
+    #5d6b7a 55.12%,
+    #485461 71.54%,
+    #24293033 100%
+  );
+}
+
+.line-gradient-to-left {
+  background: radial-gradient(
+    64.18% 64.18% at 28.84% 35.69%,
+    /* Cambio en la posición horizontal del centro */ #bad6f7 0.89%,
+    #899eb6 17.23%,
+    #6c7c8f 42.04%,
+    #5d6b7a 55.12%,
+    #485461 71.54%,
+    #24293033 100%
+  );
 }
