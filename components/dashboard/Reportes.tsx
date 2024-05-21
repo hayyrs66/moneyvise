@@ -4,11 +4,11 @@ function Reportes() {
   return (
     <>
       {/* overview  */}
-      <div className="w-full h-full flex gap-5">
+      <div className="w-full h-full flex items-center gap-5">
         {dataOverview.map((item, index) => (
           <div
             key={index}
-            className="w-fit min-w-60 mt-10 border border-white/15 rounded-md
+            className="w-fit min-w-60 border border-white/15 rounded-md
             p-5"
           >
             <div className="flex w-full justify-between gap-5">
