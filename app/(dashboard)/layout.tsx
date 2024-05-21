@@ -38,8 +38,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Link>
         </nav>
       </div>
-
-      {children}
+      <section>
+        <div className="border border-white/15 rounded-md p-10">{children}</div>
+      </section>
     </div>
   );
 }
