@@ -1,9 +1,9 @@
 const Outflow = () => {
   return (
-    <div className="border border-white/15 p-5 w-fit min-w-[500px] mt-10 rounded-lg">
-      <div className="p-2 rounded-lg">
+    <div className="border border-red-300/30 p-5 w-fit min-w-[500px] rounded-lg">
+      <div className="rounded-lg">
         <h3 className="text-white tracking-tighter font-bold">
-          Gastos Recientes
+          Gastos
         </h3>
         <p className="text-white/50 mt-1 text-sm tracking-tight font-medium">
           Tuviste 3 gastos recientemente.
