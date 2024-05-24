@@ -33,21 +33,7 @@ const Hero = () => {
         alt="gradient blur"
         className="absolute top-0 left-0 z-[0] select-none w-full h-full opacity-20"
       />
-      <img
-        src="elipse06.png"
-        alt="gradient blur"
-        className="absolute top-0 left-0 z-[0] select-none w-full h-full opacity-20"
-      />
-      <img
-        src="elipse07.png"
-        alt="gradient blur"
-        className="absolute top-0 left-0 z-[0] select-none w-full h-full opacity-20"
-      />
-      <img
-        src="elipse08.png"
-        alt="gradient blur"
-        className="absolute top-0 left-0 z-[0] select-none w-full h-full opacity-20"
-      />
+     
       {/* FinnanceTrack element */}
       <div className="flex z-[1] mt-32">
         <button className="w-fit px-[1.5rem] py-[0.3rem] rounded-md innerbtn ">
