@@ -26,3 +26,26 @@ export const dataOverview = [
         icon: FaMoneyCheckDollar as IconType,
     }
 ]
+
+export const chartdata = [
+    {
+      name: "Transacción Bancaria",
+      "Gastos por Categoría": 244,
+    },
+    {
+      name: "Ventas",
+      "Gastos por Categoría": 1445,
+    },
+    {
+      name: "Ocio",
+      "Gastos por Categoría": 281,
+    },
+    {
+      name: "Salario",
+      "Gastos por Categoría": 251,
+    },
+    {
+      name: "Comida y Bebida",
+      "Gastos por Categoría": 232,
+    },
+  ];
