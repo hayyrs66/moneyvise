@@ -1,7 +1,10 @@
+import { Button } from "../ui/button"
 
 const Pagos = () => {
   return (
-    <div>Pagos</div>
+    <div>
+      
+    </div>
   )
 }
 
