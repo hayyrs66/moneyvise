@@ -12,7 +12,7 @@ const Box = ({
   return (
     <div className="w-fit min-w-60 border border-white/15 rounded-md p-5">
       <div className="flex w-full justify-between gap-5">
-        <h3 className="text-white/50 text-sm tracking-tight font-medium">
+        <h3 className="text-white/50 text-sm tracking-tight mb-2 font-medium">
           {title}
         </h3>
         {icon}
