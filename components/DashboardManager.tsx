@@ -2,8 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import General from "./dashboard/General";
 import Reportes from "./dashboard/Reportes";
-import Pagos from "./dashboard/Pagos";
-import Notificaciones from "./dashboard/Notificaciones";
+import Settings from "./dashboard/Settings";
 
 const DashboardManager = () => {
   const searchParams = useSearchParams();
@@ -12,8 +11,7 @@ const DashboardManager = () => {
   const tabComponents: { [key: string]: JSX.Element } = {
     general: <General />,
     reportes: <Reportes />,
-    pagos: <Pagos />,
-    notificaciones: <Notificaciones />,
+    configuracion: <Settings />,
   };
 
   return tabComponents[tab ?? "general"] || null;
