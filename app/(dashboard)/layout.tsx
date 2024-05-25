@@ -28,11 +28,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             General
           </Link>
           <Link
-            href="?tab=pagos"
+            href="?tab=configuracion"
             className="text-white/50 text-sm tracking-tight font-medium hover:text-white/80 px-3
           rounded-lg py-1 transition-colors"
           >
-            Pagos
+            Configuración
           </Link>
           <Link
             href="?tab=reportes"
@@ -40,13 +40,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           rounded-lg py-1 transition-colors"
           >
             Reportes
-          </Link>
-          <Link
-            href="?tab=notificaciones"
-            className="text-white/50 text-sm tracking-tight font-medium hover:text-white/80 
-          px-3 rounded-lg py-1 transition-colors"
-          >
-            Notificaciones
           </Link>
         </nav>
       </div>
