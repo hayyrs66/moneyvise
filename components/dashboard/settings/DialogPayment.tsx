@@ -14,8 +14,35 @@ import { Textarea } from "@/components/ui/textarea";
 import { ReactNode } from "react";
 import { SelectClasification } from "./Clasifications";
 import { DatePickerForm } from "./DatePickerForm";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+type FormData = z.infer<typeof formSchema>;
+
+// Definir el esquema del formulario usando zod
+const formSchema = z.object({
+  name: z.string().min(1, "Nombre es requerido"),
+  amount: z.coerce.number(),
+  description: z.string().min(1, "Nombre es requerido"),
+  date: z.date().refine((date) => date instanceof Date, "La fecha es requerida"),
+});
 
 export function DialogPayment({ children }: { children: ReactNode }) {
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      amount: "",
+      description: "",
+      date: null,
+    },
+  });
+
+  const onSubmit = (data: FormData) => {
+    console.log(data); // Manejar los datos del formulario
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -23,46 +50,78 @@ export function DialogPayment({ children }: { children: ReactNode }) {
         <DialogHeader>
           <DialogTitle className="text-white">Agregar Pago</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right text-white">
               Nombre
             </Label>
-            <Input
-              id="name"
-              placeholder="Ej. Depósito"
-              className="col-span-3 text-white/80"
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  id="name"
+                  placeholder="Ej. Depósito"
+                  className="col-span-3 text-white/80"
+                  {...field}
+                />
+              )}
             />
+            {errors.name && <span className="text-red-500 col-span-4">{errors.name.message}</span>}
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right text-white">
+            <Label htmlFor="amount" className="text-right text-white">
               Monto
             </Label>
-            <Input
-              id="name"
-              placeholder="Ej. 5000"
-              className="col-span-3 text-white/80"
+            <Controller
+              name="amount"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  id="amount"
+                  placeholder="Ej. 5000"
+                  className="col-span-3 text-white/80"
+                  type="number"
+                  {...field}
+                />
+              )}
             />
+            {errors.amount && <span className="text-red-500 col-span-4">{errors.amount.message}</span>}
           </div>
           <div className="flex items-center gap-4">
-            <Label htmlFor="username" className="text-right text-white">
+            <Label htmlFor="description" className="text-right text-white">
               Descripción
             </Label>
-            <Textarea
-              className="resize-none w-full text-white/80"
-              placeholder="Ej. Depósito a razón de deuda pendiente."
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => (
+                <Textarea
+                  className="resize-none w-full text-white/80"
+                  placeholder="Ej. Depósito a razón de deuda pendiente."
+                  {...field}
+                />
+              )}
             />
+            {errors.description && <span className="text-red-500">{errors.description.message}</span>}
           </div>
           <div className="flex w-full items-center gap-4">
-            <Label htmlFor="username" className="text-right text-white">
+            <Label htmlFor="date" className="text-right text-white">
               Fecha Pago
             </Label>
-            <DatePickerForm />
+            <Controller
+              name="date"
+              control={control}
+              render={({ field }) => (
+                <DatePickerForm value={field.value} onChange={field.onChange} />
+              )}
+            />
+            {errors.date && <span className="text-red-500">{errors.date.message}</span>}
           </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Guardar</Button>
-        </DialogFooter>
+          <DialogFooter>
+            <Button type="submit">Guardar</Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
