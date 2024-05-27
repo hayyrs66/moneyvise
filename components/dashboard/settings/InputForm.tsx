@@ -23,7 +23,7 @@ export function InputForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      number: "",
+      number: 0,
     },
   });
 
@@ -35,9 +35,8 @@ export function InputForm() {
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
-
     });
-    console.log(JSON.stringify(data, null, 2))
+    console.log(JSON.stringify(data, null, 2));
   }
 
   return (
@@ -55,7 +54,12 @@ export function InputForm() {
                 <FormControl>
                   <Input placeholder="Cantidad" {...field} />
                 </FormControl>
-                <Button type="submit" className="bg-[#18181b] text-white hover:bg-[#18181b]">Añadir</Button>
+                <Button
+                  type="submit"
+                  className="bg-[#18181b] text-white hover:bg-[#18181b]"
+                >
+                  Añadir
+                </Button>
               </div>
               <FormMessage />
             </FormItem>
