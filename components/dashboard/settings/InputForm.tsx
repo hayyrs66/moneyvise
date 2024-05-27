@@ -35,7 +35,9 @@ export function InputForm() {
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
+
     });
+    console.log(JSON.stringify(data, null, 2))
   }
 
   return (
@@ -51,7 +53,7 @@ export function InputForm() {
             <FormItem>
               <div className="flex gap-5">
                 <FormControl>
-                  <Input placeholder="Amount" {...field} />
+                  <Input placeholder="Cantidad" {...field} />
                 </FormControl>
                 <Button type="submit" className="bg-[#18181b] text-white hover:bg-[#18181b]">Añadir</Button>
               </div>
