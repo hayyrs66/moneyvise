@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +13,6 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 
 // Define the Zod schema
@@ -21,9 +20,12 @@ const formSchema = z.object({
   financial_tips: z.boolean().default(false),
 });
 
+// Type inferred from the Zod schema
+type FormData = z.infer<typeof formSchema>;
+
 const SwitchForm = () => {
   // Use useForm hook with zodResolver for validation
-  const form = useForm({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       financial_tips: false,
@@ -31,7 +33,7 @@ const SwitchForm = () => {
   });
 
   // Handle form submission
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     toast({
       title: "You submitted the following values:",
       description: (
