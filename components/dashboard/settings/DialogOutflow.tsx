@@ -13,8 +13,30 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ReactNode } from "react";
 import { SelectClasification } from "./Clasifications";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+type FormData = z.infer<typeof formSchema>;
+
+
+// Definir el esquema del formulario usando zod
+const formSchema = z.object({
+  name: z.string().min(1, "Nombre es requerido"),
+  amount: z.string().min(1, "Monto es requerido"),
+  description: z.string().min(1, "Descripción es requerida"),
+  classification: z.string().min(1, "Clasificación es requerida"),
+});
 
 export function DialogOutflow({ children }: { children: ReactNode }) {
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(formSchema),
+  });
+
+  const onSubmit = (data: FormData) => {
+    console.log(data); // Manejar los datos del formulario
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -22,46 +44,72 @@ export function DialogOutflow({ children }: { children: ReactNode }) {
         <DialogHeader>
           <DialogTitle className="text-white">Agregar Egreso</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right text-white">
-              Nombre
-            </Label>
-            <Input
-              id="name"
-              placeholder="Ej. Compra Amplificador"
-              className="col-span-3 text-white/80"
-            />
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4">
+          <div className="grid gap-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right text-white">Nombre</Label>
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    id="name"
+                    placeholder="Ej. Compra Amplificador"
+                    className="col-span-3 text-white/80"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.name && <span className="text-red-500 col-span-4">{errors.name.message}</span>}
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="amount" className="text-right text-white">Monto</Label>
+              <Controller
+                name="amount"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    id="amount"
+                    placeholder="Ej. 1000"
+                    className="col-span-3 text-white/80"
+                    {...field}
+                    type="number"
+                  />
+                )}
+              />
+              {errors.amount && <span className="text-red-500 col-span-4">{errors.amount.message}</span>}
+            </div>
+            <div className="flex items-center gap-4">
+              <Label htmlFor="description" className="text-right text-white">Descripción</Label>
+              <Controller
+                name="description"
+                control={control}
+                render={({ field }) => (
+                  <Textarea
+                    className="resize-none w-full text-white/80"
+                    placeholder="Ej. Compra de Amplificador Marshall en DoMiSol"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.description && <span className="text-red-500">{errors.description.message}</span>}
+            </div>
+            <div className="flex items-center gap-4">
+              <Label htmlFor="classification" className="text-right text-white">Clasificación</Label>
+              <Controller
+                name="classification"
+                control={control}
+                render={({ field }) => (
+                  <SelectClasification value={field.value} onChange={field.onChange} />
+                )}
+              />
+              {errors.classification && <span className="text-red-500">{errors.classification.message}</span>}
+            </div>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right text-white">
-              Monto
-            </Label>
-            <Input
-              id="name"
-              placeholder="Ej. 1000"
-              className="col-span-3 text-white/80"
-            />
-          </div>
-          <div className="flex items-center gap-4">
-            <Label htmlFor="username" className="text-right text-white">
-              Descripción
-            </Label>
-            <Textarea
-              className="resize-none w-full text-white/80"
-              placeholder="Ej. Compra de Amplificador Marshall en DoMiSol"
-            />
-          </div>
-          <div className="flex items-center gap-4">
-            <Label htmlFor="username" className="text-right text-white">
-              Clasificación
-            </Label>
-            <SelectClasification />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Guardar</Button>
-        </DialogFooter>
+          <DialogFooter>
+            <Button type="submit">Guardar</Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
