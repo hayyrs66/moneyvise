@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -14,33 +13,32 @@ import { Textarea } from "@/components/ui/textarea";
 import { ReactNode } from "react";
 import { SelectClasification } from "./Clasifications";
 import { DatePickerForm } from "./DatePickerForm";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-type FormData = z.infer<typeof formSchema>;
-
-// Definir el esquema del formulario usando zod
 const formSchema = z.object({
   name: z.string().min(1, "Nombre es requerido"),
-  amount: z.coerce.number(),
+  amount: z.number(),
   description: z.string().min(1, "Nombre es requerido"),
-  date: z.date().refine((date) => date instanceof Date, "La fecha es requerida"),
+  date: z.date(),
 });
 
+type FormData = z.infer<typeof formSchema>;
+
 export function DialogPayment({ children }: { children: ReactNode }) {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      amount: "",
+      amount: 0,
       description: "",
-      date: null,
+      date: new Date(),
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data); // Manejar los datos del formulario
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data); // Handle form data
   };
 
   return (
@@ -50,7 +48,7 @@ export function DialogPayment({ children }: { children: ReactNode }) {
         <DialogHeader>
           <DialogTitle className="text-white">Agregar Pago</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right text-white">
               Nombre
