@@ -14,27 +14,27 @@ import { Textarea } from "@/components/ui/textarea";
 import { ReactNode } from "react";
 import { SelectClasification } from "./Clasifications";
 import { useForm, Controller } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-type FormData = z.infer<typeof formSchema>;
-
-
-// Definir el esquema del formulario usando zod
+// Define the form schema using zod
 const formSchema = z.object({
   name: z.string().min(1, "Nombre es requerido"),
-  amount: z.string().min(1, "Monto es requerido"),
+  amount: z.number().min(1, "Monto es requerido"),
   description: z.string().min(1, "Descripción es requerida"),
   classification: z.string().min(1, "Clasificación es requerida"),
 });
 
+type FieldValues = z.infer<typeof formSchema>;
+
 export function DialogOutflow({ children }: { children: ReactNode }) {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm<FieldValues>({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data); // Manejar los datos del formulario
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data); // Handle form data
   };
 
   return (
@@ -60,7 +60,7 @@ export function DialogOutflow({ children }: { children: ReactNode }) {
                   />
                 )}
               />
-              {errors.name && <span className="text-red-500 col-span-4">{errors.name.message}</span>}
+              {errors.name && <span className="text-red-500 col-span-4">{errors.name.message?.toString()}</span>}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="amount" className="text-right text-white">Monto</Label>
@@ -77,7 +77,7 @@ export function DialogOutflow({ children }: { children: ReactNode }) {
                   />
                 )}
               />
-              {errors.amount && <span className="text-red-500 col-span-4">{errors.amount.message}</span>}
+              {errors.amount && <span className="text-red-500 col-span-4">{errors.amount.message?.toString()}</span>}
             </div>
             <div className="flex items-center gap-4">
               <Label htmlFor="description" className="text-right text-white">Descripción</Label>
@@ -92,7 +92,7 @@ export function DialogOutflow({ children }: { children: ReactNode }) {
                   />
                 )}
               />
-              {errors.description && <span className="text-red-500">{errors.description.message}</span>}
+              {errors.description && <span className="text-red-500">{errors.description.message?.toString()}</span>}
             </div>
             <div className="flex items-center gap-4">
               <Label htmlFor="classification" className="text-right text-white">Clasificación</Label>
@@ -103,7 +103,7 @@ export function DialogOutflow({ children }: { children: ReactNode }) {
                   <SelectClasification value={field.value} onChange={field.onChange} />
                 )}
               />
-              {errors.classification && <span className="text-red-500">{errors.classification.message}</span>}
+              {errors.classification && <span className="text-red-500">{errors.classification.message?.toString()}</span>}
             </div>
           </div>
           <DialogFooter>
