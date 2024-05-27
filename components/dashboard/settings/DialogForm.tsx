@@ -9,14 +9,14 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 type FormData = z.infer<typeof formSchema>;
 // Definir el esquema del formulario usando zod
 const formSchema = z.object({
-  name: z.string().nonempty("El nombre es requerido"),
+  name: z.string().min(1, "Nombre es requerido"),
 });
 
 export function DialogDemo({ children }: { children?: React.ReactNode }) {
@@ -27,7 +27,7 @@ export function DialogDemo({ children }: { children?: React.ReactNode }) {
     },
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data); // Manejar los datos del formulario
   };
 
