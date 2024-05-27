@@ -12,12 +12,23 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DatePickerForm({ value, onChange }) {
-  const [date, setDate] = React.useState(value);
+interface DatePickerFormProps {
+  value: Date | null;
+  onChange: (date: Date | null) => void;
+}
+
+export function DatePickerForm({ value, onChange }: DatePickerFormProps) {
+  const [date, setDate] = React.useState<Date | null>(value);
 
   React.useEffect(() => {
     setDate(value);
   }, [value]);
+
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    const newDate = selectedDate ?? null;
+    setDate(newDate);
+    onChange(newDate);
+  };
 
   return (
     <Popover>
@@ -36,11 +47,8 @@ export function DatePickerForm({ value, onChange }) {
       <PopoverContent className="w-auto p-0 dark">
         <Calendar
           mode="single"
-          selected={date}
-          onSelect={(selectedDate) => {
-            setDate(selectedDate);
-            onChange(selectedDate);
-          }}
+          selected={date ?? undefined}
+          onSelect={handleDateSelect}
           initialFocus
           className="dark"
         />
