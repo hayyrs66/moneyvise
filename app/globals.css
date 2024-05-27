@@ -2,62 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
 
-html {
-  scroll-behavior: smooth;
-}
 
-body {
-  overflow-x: hidden;
-}
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
   }
 }
 
-.text-gradient {
-  background: radial-gradient(
-    64.18% 64.18% at 71.16% 35.69%,
-    hsl(210, 100%, 95%) 0.89%,
-    #ddedff 17.23%,
-    #c2deff 42.04%,
-    #b0d5ff 55.12%,
-    #97c8ff 71.54%,
-    #d0e5ff 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
+
+html{
+  scroll-behavior: smooth;
+  overflow-x: hidden
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body.dark {
+    @apply bg-background text-foreground;
+  }
+}
+
+.texthero {
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff40 100%);
   background-clip: text;
-  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.line-gradient-to-right {
-  background: radial-gradient(
-    64.18% 64.18% at 71.16% 35.69%,
-    #bad6f7 0.89%,
-    #899eb6 17.23%,
-    #6c7c8f 42.04%,
-    #5d6b7a 55.12%,
-    #485461 71.54%,
-    #24293033 100%
-  );
-}
-
-.line-gradient-to-left {
-  background: radial-gradient(
-    64.18% 64.18% at 28.84% 35.69%,
-    /* Cambio en la posición horizontal del centro */ #bad6f7 0.89%,
-    #899eb6 17.23%,
-    #6c7c8f 42.04%,
-    #5d6b7a 55.12%,
-    #485461 71.54%,
-    #24293033 100%
-  );
+.innershadow {
+  background-color: #ffffff0a;
+  box-shadow: inset 0 0 10px 0 rgba(255, 255, 255, 0.1);
 }
