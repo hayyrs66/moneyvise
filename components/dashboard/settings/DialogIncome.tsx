@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ReactNode } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SelectClasification } from "./Clasifications";
@@ -21,18 +21,23 @@ type FormData = z.infer<typeof formSchema>;
 // Define the Zod schema
 const formSchema = z.object({
   name: z.string().min(1, "Nombre es requerido"),
-  amount: z.string().min(1, "Monto es requerido"),
+  amount: z.number().min(1, "Monto es requerido"),
   description: z.string().min(1, "Descripción es requerida"),
   classification: z.string().min(1, "Clasificación es requerida"),
 });
 
 export function DialogIncome({ children }: { children: ReactNode }) {
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      amount: 0,
+      description: "",
+      classification: "",
+    },
   });
 
-
-  const onSubmit = (data: FormData) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     // Handle form submission
     reset();
