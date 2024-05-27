@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectClasification({ value, onChange }) {
+export function SelectClasification({ value, onChange }: { value: any, onChange: any }) {
   return (
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[180px] dark text-white/80">
