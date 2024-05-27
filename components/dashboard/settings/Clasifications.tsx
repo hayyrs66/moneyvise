@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   Select,
   SelectContent,
@@ -10,9 +9,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectClasification() {
+export function SelectClasification({ value, onChange }) {
   return (
-    <Select>
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="w-[180px] dark text-white/80">
         <SelectValue placeholder="Seleccionar" />
       </SelectTrigger>
